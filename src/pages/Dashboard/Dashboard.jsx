@@ -1,9 +1,7 @@
-
+import { Header } from "antd/es/layout/layout";
 
 const Dashboard = () => {
-  return (
-    <div>Dashboard</div>
-  )
-}
+  return <>Dashboard</>;
+};
 
-export default Dashboard
+export default Dashboard;

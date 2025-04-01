@@ -1,14 +1,22 @@
-import Authen from "~/pages/Authen/Authen";
+import DefaultLayout from "~/components/Layouts/DefaultLayout";
+import Dashboard from "~/pages/Dashboard/Dashboard";
+import Login from "~/pages/Login/Login";
 
 const route = [
   {
-    path: "/login",
-    element: <Authen />,
+    path: "/",
+    element: <DefaultLayout />,
+    children: [
+      {
+        path: "/",
+        element: <Dashboard />,
+      },
+    ],
   },
 
   {
-    path: "/register",
-    element: <Authen />,
+    path: "/login",
+    element: <Login />,
   },
 ];
 
