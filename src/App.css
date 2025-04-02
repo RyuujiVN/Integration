@@ -1,42 +1,62 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Lexend:wght@100..900&display=swap');
+
+:root {
+  --color-purple: #7152F3;
+  --color-purple-white: #F3F1F9;
+  --color-gray: #A2A1A8;
+  --bg-gray-one: rgba(162, 161, 168, 0.10);
+  --bg-gray-three: rgba(162, 161, 168, 0.20);
+  --bg-gray-two: #F6F6F7;
+  --bg-purple-white: rgba(113, 82, 243, 0.10);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+.contain {
+  padding: 0 30px;
+}
+
+/* Table */
+.table {
+  border-radius: 10px;
+  border: 1px solid var(--bg-gray-two);
+  background: #fff;
+  padding: 20px;
+  overflow: auto;
+}
+
+.table__icon {
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+.table__icon:hover {
+  color: var(--color-purple);
+}
+
+/* End Table */
+
+/* Input */
+.input {
+  background: transparent;
+  border: 1px solid var(--bg-gray-three);
+}
+
+/* End Input */
+
+/* Modal */
+.modal__title {
   text-align: center;
+  font-size: 4rem;
+  font-weight: 700;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
-}
+/* End Modal */
