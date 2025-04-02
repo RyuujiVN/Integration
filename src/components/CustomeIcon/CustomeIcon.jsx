@@ -265,7 +265,7 @@ const ApplicantSvg = () => (
   </svg>
 );
 
-const NotificationSvg = () => {
+const NotificationSvg = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="24"
@@ -285,8 +285,8 @@ const NotificationSvg = () => {
       strokeWidth={1.5}
       strokeLinecap="round"
     />
-  </svg>;
-};
+  </svg>
+);
 
 export const DashboardIcon = (props) => (
   <Icon component={DashboardSvg} {...props} />
@@ -312,4 +312,8 @@ export const JobIcon = (props) => <Icon component={JobSvg} {...props} />;
 
 export const ApplicantIcon = (props) => (
   <Icon component={ApplicantSvg} {...props} />
+);
+
+export const NotificationIcon = (props) => (
+  <Icon component={NotificationSvg} {...props} />
 );

@@ -24,25 +24,25 @@ const items = [
   {
     key: "employee",
     icon: <EmployeeIcon />,
-    label: <Link to="/employee">Employee</Link>,
+    label: <Link to="/employee">Nhân viên</Link>,
   },
 
   {
     key: "department",
     icon: <DepartmentIcon />,
-    label: <Link to="/department">Department</Link>,
+    label: <Link to="/department">Phòng ban</Link>,
   },
 
   {
     key: "attendance",
     icon: <AttendanceIcon />,
-    label: <Link to="/attendance">Attendance</Link>,
+    label: <Link to="/attendance">Chấm công</Link>,
   },
 
   {
     key: "payroll",
     icon: <PayrollIcon />,
-    label: <Link to="/payroll">Payroll</Link>,
+    label: <Link to="/payroll">Bảng lương</Link>,
   },
 
   {
@@ -54,7 +54,7 @@ const items = [
   {
     key: "applicant",
     icon: <ApplicantIcon />,
-    label: <Link to="/applicant">Applicants</Link>,
+    label: <Link to="/applicant">Ứng tuyển</Link>,
   },
 ];
 
@@ -66,7 +66,7 @@ const Sidebar = () => {
           <img src={Logo} alt="Logo" width={123} />
         </div>
         <Menu
-          defaultSelectedKeys={["dashboard"]}
+          defaultSelectedKeys={[location.pathname.split("/")[1] || "dashboard"]}
           mode="inline"
           theme="light"
           items={items}

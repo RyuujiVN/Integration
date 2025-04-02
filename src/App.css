@@ -3,6 +3,11 @@
 :root {
   --color-purple: #7152F3;
   --color-purple-white: #F3F1F9;
+  --color-gray: #A2A1A8;
+  --bg-gray-one: rgba(162, 161, 168, 0.10);
+  --bg-gray-three: rgba(162, 161, 168, 0.20);
+  --bg-gray-two: #F6F6F7;
+  --bg-purple-white: rgba(113, 82, 243, 0.10);
 }
 
 * {
@@ -14,3 +19,35 @@
 html {
   font-size: 62.5%;
 }
+
+.contain {
+  padding: 0 30px;
+}
+
+/* Table */
+.table {
+  border-radius: 10px;
+  border: 1px solid var(--bg-gray-two);
+  background: #fff;
+  padding: 20px;
+  overflow: auto;
+}
+
+.table__icon {
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+.table__icon:hover {
+  color: var(--color-purple);
+}
+
+/* End Table */
+
+/* Input */
+.input {
+  background: transparent;
+  border: 1px solid var(--bg-gray-three);
+}
+
+/* End Input */

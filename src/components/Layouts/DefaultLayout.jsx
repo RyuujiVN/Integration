@@ -12,7 +12,7 @@ const DefaultLayout = () => {
         }}
       >
         <Sidebar />
-        <Content>
+        <Content style={{ background: "#F9FBFD" }}>
           <Outlet />
         </Content>
       </Layout>

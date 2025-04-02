@@ -46,7 +46,7 @@ const Login = () => {
                     },
                   ]}
                 >
-                  <Input placeholder="Mật khẩu..." />
+                  <Input.Password placeholder="Mật khẩu..." />
                 </Form.Item>
 
                 <Form.Item>
