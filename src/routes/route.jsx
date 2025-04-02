@@ -1,5 +1,6 @@
 import DefaultLayout from "~/components/Layouts/DefaultLayout";
 import Dashboard from "~/pages/Dashboard/Dashboard";
+import Department from "~/pages/Department/Department";
 import AddEmployee from "~/pages/Employee/AddEmployee";
 import Employee from "~/pages/Employee/Employee";
 import ListEmployee from "~/pages/Employee/ListEmployee";
@@ -29,6 +30,11 @@ const route = [
             element: <AddEmployee />,
           },
         ],
+      },
+
+      {
+        path: "/department",
+        element: <Department />,
       },
     ],
   },

@@ -1,5 +1,5 @@
 import Header from "~/components/Header/Header";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Button, Flex, Form, Input, Table, Tag } from "antd";
 import {
   EyeOutlined,
@@ -8,23 +8,24 @@ import {
   SearchOutlined,
   PlusCircleOutlined,
 } from "@ant-design/icons";
-import "./Employee.css";
 import { Link } from "react-router-dom";
-import DetailEmployee from "~/pages/Employee/DetailEmployee";
+import DetailDepartment from "~/pages/Department/DetailDepartment";
+import "./Department.css";
+import AddDepartment from "./AddDepartment";
+import { EditDepartment } from "./EditDepartment";
 
 const columns = [
-  { title: "Employee Name", dataIndex: "name" },
-  { title: "Hire Date", dataIndex: "hireDate" },
-  { title: "Department", dataIndex: "department" },
-  { title: "Jobs", dataIndex: "job" },
-  { title: "Salary", dataIndex: "salary" },
-  { title: "Status", dataIndex: "status" },
+  { title: "Department Name", dataIndex: "name" },
+  { title: "Manager Name", dataIndex: "manager" },
+  { title: "Number of member", dataIndex: "member" },
   { title: "Action", dataIndex: "action" },
 ];
 
-const ListEmployee = () => {
+const Department = () => {
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [openDetail, setOpenDetail] = useState(false);
+  const [openAddDepartment, setOpenAddDepartment] = useState(false);
+  const [openEditDepartment, setOpenEditDepartment] = useState(false);
 
   const onSelectChange = (newSelectedRowKeys) => {
     console.log("selectedRowKeys changed: ", newSelectedRowKeys);
@@ -39,40 +40,38 @@ const ListEmployee = () => {
     console.log(value);
   };
 
-  const dataSource = Array.from({ length: 100 }).map((_, i) => ({
+  const dataSource = Array.from({ length: 8 }).map((_, i) => ({
     key: i,
     name: `Edward King ${i}`,
-    hireDate: "10/10/2025",
-    department: `Design`,
-    job: `UI/UX Designer`,
-    salary: "$3500",
-    status: (
-      <Tag color="purple" bordered={false}>
-        Active
-      </Tag>
-    ),
+    manager: `Darlene Robertson ${i}`,
+    member: `${i}`,
     action: (
       <Flex align="center" gap="small">
         <EyeOutlined
           className="table__icon"
           onClick={() => setOpenDetail(true)}
         />
-        <EditOutlined className="table__icon" />
+        <EditOutlined
+          className="table__icon"
+          onClick={() => setOpenEditDepartment(true)}
+        />
         <DeleteOutlined className="table__icon" />
       </Flex>
     ),
   }));
 
-  useEffect(() => {}, []);
   return (
     <>
-      <div className="employee__list contain">
-        <Header title="All Employees" subTitle="All Employee Information" />
+      <div className="department__list contain">
+        <Header
+          title="Danh sách phòng ban"
+          subTitle="Chi tiết danh sách phòng ban"
+        />
 
-        <div className="employee__table table">
-          <div className="employee__table--head">
+        <div className="department__table table">
+          <div className="department__table--head">
             <Flex align="center" justify="space-between">
-              <div className="employee__search">
+              <div className="department__search">
                 <Form onFinish={handleSearch}>
                   <Form.Item name="search">
                     <Input
@@ -84,13 +83,14 @@ const ListEmployee = () => {
                 </Form>
               </div>
 
-              <div className="employee__action">
+              <div className="department__action">
                 <Button
                   type="primary"
                   icon={<PlusCircleOutlined />}
                   size="large"
+                  onClick={() => setOpenAddDepartment(true)}
                 >
-                  <Link to="add">Thêm nhân viên</Link>
+                  Thêm phòng ban
                 </Button>
               </div>
             </Flex>
@@ -104,9 +104,14 @@ const ListEmployee = () => {
         </div>
       </div>
 
-      <DetailEmployee open={openDetail} setOpen={setOpenDetail} />
+      <DetailDepartment open={openDetail} setOpen={setOpenDetail} />
+      <AddDepartment open={openAddDepartment} setOpen={setOpenAddDepartment} />
+      <EditDepartment
+        open={openEditDepartment}
+        setOpen={setOpenEditDepartment}
+      />
     </>
   );
 };
 
-export default ListEmployee;
+export default Department;
