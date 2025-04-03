@@ -46,8 +46,7 @@ html {
 
 /* Input */
 .input {
-  background: transparent;
-  border: 1px solid var(--bg-gray-three);
+  width: 100%;
 }
 
 /* End Input */
