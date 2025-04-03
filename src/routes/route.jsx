@@ -2,6 +2,7 @@ import DefaultLayout from "~/components/Layouts/DefaultLayout";
 import Dashboard from "~/pages/Dashboard/Dashboard";
 import Department from "~/pages/Department/Department";
 import AddEmployee from "~/pages/Employee/AddEmployee";
+import EditEmployee from "~/pages/Employee/EditEmployee";
 import Employee from "~/pages/Employee/Employee";
 import ListEmployee from "~/pages/Employee/ListEmployee";
 import Job from "~/pages/Job/Job";
@@ -30,6 +31,11 @@ const route = [
           {
             path: "add",
             element: <AddEmployee />,
+          },
+
+          {
+            path: "edit",
+            element: <EditEmployee />,
           },
         ],
       },

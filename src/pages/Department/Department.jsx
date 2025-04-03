@@ -15,10 +15,10 @@ import AddDepartment from "./AddDepartment";
 import { EditDepartment } from "./EditDepartment";
 
 const columns = [
-  { title: "Department Name", dataIndex: "name" },
-  { title: "Manager Name", dataIndex: "manager" },
-  { title: "Number of member", dataIndex: "member" },
-  { title: "Action", dataIndex: "action" },
+  { title: "Tên phòng ban", dataIndex: "name" },
+  { title: "Quản lý", dataIndex: "manager" },
+  { title: "Số lượng", dataIndex: "member" },
+  { title: "Hành động", dataIndex: "action" },
 ];
 
 const Department = () => {

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Button, Flex, Form, Input, Table, Tag } from "antd";
-import Header from "~/components/Header/Header"
+import Header from "~/components/Header/Header";
 import {
   EyeOutlined,
   EditOutlined,
@@ -18,8 +18,8 @@ const columns = [
   { title: "Phòng ban", dataIndex: "department" },
   { title: "Vị trí", dataIndex: "job" },
   { title: "Lương", dataIndex: "salary" },
-  { title: "Status", dataIndex: "status" },
-  { title: "Action", dataIndex: "action" },
+  { title: "Trạng thái", dataIndex: "status" },
+  { title: "Hành động", dataIndex: "action" },
 ];
 
 const ListEmployee = () => {
@@ -57,7 +57,9 @@ const ListEmployee = () => {
           className="table__icon"
           onClick={() => setOpenDetail(true)}
         />
-        <EditOutlined className="table__icon" />
+        <Link to="edit">
+          <EditOutlined className="table__icon" />
+        </Link>
         <DeleteOutlined className="table__icon" />
       </Flex>
     ),
