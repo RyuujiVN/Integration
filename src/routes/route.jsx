@@ -4,6 +4,7 @@ import Department from "~/pages/Department/Department";
 import AddEmployee from "~/pages/Employee/AddEmployee";
 import Employee from "~/pages/Employee/Employee";
 import ListEmployee from "~/pages/Employee/ListEmployee";
+import Job from "~/pages/Job/Job";
 import Login from "~/pages/Login/Login";
 import Payroll from "~/pages/Payroll/Payroll";
 
@@ -41,6 +42,11 @@ const route = [
       {
         path: "/payroll",
         element: <Payroll />,
+      },
+
+      {
+        path: "/job",
+        element: <Job />,
       },
     ],
   },

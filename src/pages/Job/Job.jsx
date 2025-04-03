@@ -1,6 +1,6 @@
 import Header from "~/components/Header/Header";
 import React, { useState } from "react";
-import { Button, Flex, Form, Input, Popconfirm, Table, Tag } from "antd";
+import { Button, Flex, Form, Input, Table, Tag } from "antd";
 import {
   EyeOutlined,
   EditOutlined,
@@ -9,23 +9,23 @@ import {
   PlusCircleOutlined,
 } from "@ant-design/icons";
 import { Link } from "react-router-dom";
-import DetailDepartment from "~/pages/Department/DetailDepartment";
-import "./Department.css";
-import AddDepartment from "./AddDepartment";
-import { EditDepartment } from "./EditDepartment";
+import DetailJob from "./DetailJob";
+import AddJob from "./AddJob";
+import EditJob from "./EditJob";
 
 const columns = [
-  { title: "Department Name", dataIndex: "name" },
-  { title: "Manager Name", dataIndex: "manager" },
-  { title: "Number of member", dataIndex: "member" },
-  { title: "Action", dataIndex: "action" },
+  { title: "Tên vị trí", dataIndex: "name" },
+  { title: "Lương tối thiểu", dataIndex: "minSalary" },
+  { title: "Lương tối đa", dataIndex: "maxSalary" },
+  { title: "Phòng ban", dataIndex: "department" },
+  { title: "Hành động", dataIndex: "action" },
 ];
 
-const Department = () => {
+const Job = () => {
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [openDetail, setOpenDetail] = useState(false);
-  const [openAddDepartment, setOpenAddDepartment] = useState(false);
-  const [openEditDepartment, setOpenEditDepartment] = useState(false);
+  const [openAddJob, setOpenAddJob] = useState(false);
+  const [openEditJob, setOpenEditJob] = useState(false);
 
   const onSelectChange = (newSelectedRowKeys) => {
     console.log("selectedRowKeys changed: ", newSelectedRowKeys);
@@ -42,9 +42,12 @@ const Department = () => {
 
   const dataSource = Array.from({ length: 8 }).map((_, i) => ({
     key: i,
-    name: `Edward King ${i}`,
-    manager: `Darlene Robertson ${i}`,
-    member: `${i}`,
+    name: `UI/UX Desiger`,
+    minSalary: `$4000`,
+    maxSalary: `$6000`,
+    department: (
+      <Tag color="success" bordered={false}>Design Department</Tag>
+    ),
     action: (
       <Flex align="center" gap="small">
         <EyeOutlined
@@ -53,34 +56,22 @@ const Department = () => {
         />
         <EditOutlined
           className="table__icon"
-          onClick={() => setOpenEditDepartment(true)}
+          onClick={() => setOpenEditJob(true)}
         />
-        <Popconfirm
-          title="Xoá"
-          description="Bạn có muốn xoá phòng ban này?"
-          // onConfirm={confirm}
-          // onCancel={cancel}
-          okText="Yes"
-          cancelText="No"
-        >
-          <DeleteOutlined className="table__icon" />
-        </Popconfirm>
+        <DeleteOutlined className="table__icon" />
       </Flex>
     ),
   }));
 
   return (
     <>
-      <div className="department__list contain">
-        <Header
-          title="Danh sách phòng ban"
-          subTitle="Chi tiết danh sách phòng ban"
-        />
+      <div className="job__list contain">
+        <Header title="Vị trí" subTitle="Danh sách vị trí" />
 
-        <div className="department__table table">
-          <div className="department__table--head">
+        <div className="job__table table">
+          <div className="job__table--head">
             <Flex align="center" justify="space-between">
-              <div className="department__search">
+              <div className="job__search">
                 <Form onFinish={handleSearch}>
                   <Form.Item name="search">
                     <Input
@@ -92,14 +83,14 @@ const Department = () => {
                 </Form>
               </div>
 
-              <div className="department__action">
+              <div className="job__action">
                 <Button
                   type="primary"
                   icon={<PlusCircleOutlined />}
                   size="large"
-                  onClick={() => setOpenAddDepartment(true)}
+                  onClick={() => setOpenAddJob(true)}
                 >
-                  Thêm phòng ban
+                  Thêm vị trí
                 </Button>
               </div>
             </Flex>
@@ -113,14 +104,11 @@ const Department = () => {
         </div>
       </div>
 
-      <DetailDepartment open={openDetail} setOpen={setOpenDetail} />
-      <AddDepartment open={openAddDepartment} setOpen={setOpenAddDepartment} />
-      <EditDepartment
-        open={openEditDepartment}
-        setOpen={setOpenEditDepartment}
-      />
+      <DetailJob open={openDetail} setOpen={setOpenDetail} />
+      <AddJob open={openAddJob} setOpen={setOpenAddJob} />
+      <EditJob open={openEditJob} setOpen={setOpenEditJob} />
     </>
   );
 };
 
-export default Department;
+export default Job;

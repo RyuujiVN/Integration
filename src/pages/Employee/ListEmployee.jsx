@@ -1,6 +1,6 @@
-import Header from "~/components/Header/Header";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Flex, Form, Input, Table, Tag } from "antd";
+import Header from "~/components/Header/Header"
 import {
   EyeOutlined,
   EditOutlined,
@@ -13,11 +13,11 @@ import { Link } from "react-router-dom";
 import DetailEmployee from "~/pages/Employee/DetailEmployee";
 
 const columns = [
-  { title: "Employee Name", dataIndex: "name" },
-  { title: "Hire Date", dataIndex: "hireDate" },
-  { title: "Department", dataIndex: "department" },
-  { title: "Jobs", dataIndex: "job" },
-  { title: "Salary", dataIndex: "salary" },
+  { title: "Tên nhân viên", dataIndex: "name" },
+  { title: "Ngày vào làm", dataIndex: "hireDate" },
+  { title: "Phòng ban", dataIndex: "department" },
+  { title: "Vị trí", dataIndex: "job" },
+  { title: "Lương", dataIndex: "salary" },
   { title: "Status", dataIndex: "status" },
   { title: "Action", dataIndex: "action" },
 ];
@@ -67,7 +67,7 @@ const ListEmployee = () => {
   return (
     <>
       <div className="employee__list contain">
-        <Header title="All Employees" subTitle="All Employee Information" />
+        <Header title="Nhân viên" subTitle="Danh sách nhân viên" />
 
         <div className="employee__table table">
           <div className="employee__table--head">

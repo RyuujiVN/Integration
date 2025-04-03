@@ -17,6 +17,11 @@ function App() {
               colorPrimary: "#7152F3",
               algorithm: true,
             },
+            Tag: {
+              colorSuccess: "#3FC28A",
+              colorSuccessBg: "rgba(63, 194, 138, 0.10)"
+              
+            },
           },
         }}
       >
