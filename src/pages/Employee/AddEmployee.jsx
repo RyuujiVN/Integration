@@ -34,7 +34,9 @@ const AddEmployee = () => {
           </Flex>
           <Divider />
 
-          <Form>
+          <Form initialValues={{
+            hire_date: dayjs("04/02/2025", "DD/MM/YYYY"),
+          }}>
             <Row align="center" gap={20} gutter={[20, 20]}>
               <Col sm={12}>
                 <Form.Item
@@ -145,7 +147,6 @@ const AddEmployee = () => {
                   ]}
                 >
                   <DatePicker
-                    defaultValue={dayjs("04/02/2025", "DD/MM/YYYY")}
                     format="DD/MM/YYYY"
                     style={{ width: "100%" }}
                     
@@ -180,7 +181,6 @@ const AddEmployee = () => {
                   ]}
                 >
                   <DatePicker
-                    defaultValue={dayjs("04/02/2025", "DD/MM/YYYY")}
                     format="DD/MM/YYYY"
                     style={{ width: "100%" }}
                     

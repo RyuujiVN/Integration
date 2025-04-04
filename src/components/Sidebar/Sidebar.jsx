@@ -1,5 +1,5 @@
 import Sider from "antd/es/layout/Sider";
-import React from "react";
+import React, { useContext } from "react";
 import Logo from "~/assets/images/Logo.png";
 import {
   ApplicantIcon,
@@ -10,9 +10,11 @@ import {
   JobIcon,
   PayrollIcon,
 } from "~/components/CustomeIcon/CustomeIcon";
-import { Menu } from "antd";
+import { Menu, Segmented } from "antd";
 import "./Siderbar.css";
 import { Link } from "react-router-dom";
+import { SunOutlined, MoonOutlined } from "@ant-design/icons";
+import { ThemeContext } from "~/context/themeContext";
 
 const items = [
   {
@@ -59,6 +61,12 @@ const items = [
 ];
 
 const Sidebar = () => {
+  const { myTheme, toggleTheme } = useContext(ThemeContext);
+
+  const handleChange = (value) => {
+    toggleTheme(value);
+  };
+
   return (
     <>
       <Sider theme="light" className="sidebar">
@@ -70,6 +78,16 @@ const Sidebar = () => {
           mode="inline"
           theme="light"
           items={items}
+        />
+        <Segmented
+          size="large"
+          options={[
+            { label: "Light", value: "light", icon: <SunOutlined /> },
+            { label: "Dark", value: "dark", icon: <MoonOutlined /> },
+          ]}
+          onChange={handleChange}
+          style={{ margin: "auto 10px 10px 10px" }}
+          defaultValue={myTheme}
         />
       </Sider>
     </>

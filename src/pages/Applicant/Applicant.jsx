@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
-import { Button, Card, Flex, Form, Input, Popconfirm, Table, Tag } from "antd";
 import Header from "~/components/Header/Header";
+import React, { useState } from "react";
+import { Button, Card, Flex, Form, Input, Popconfirm, Table, Tag } from "antd";
 import {
   EyeOutlined,
   EditOutlined,
@@ -8,23 +8,25 @@ import {
   SearchOutlined,
   PlusCircleOutlined,
 } from "@ant-design/icons";
-import "./Employee.css";
-import { Link } from "react-router-dom";
-import DetailEmployee from "~/pages/Employee/DetailEmployee";
+import AddApplicant from "./AddApplicant";
+import EditApplicant from "./EditApplicant";
+import DetailApplicant from "./DetailApplicant";
 
 const columns = [
-  { title: "Tên nhân viên", dataIndex: "name" },
-  { title: "Ngày vào làm", dataIndex: "hireDate" },
-  { title: "Phòng ban", dataIndex: "department" },
-  { title: "Vị trí", dataIndex: "job" },
-  { title: "Lương", dataIndex: "salary" },
+  { title: "Tên ứng viên", dataIndex: "name" },
+  { title: "Ứng tuyển vị trí", dataIndex: "appliedPosition" },
+  { title: "Ngày ứng tuyển", dataIndex: "appliedDate" },
+  { title: "Email", dataIndex: "email" },
+  { title: "Số điện thoại", dataIndex: "phone" },
   { title: "Trạng thái", dataIndex: "status" },
   { title: "Hành động", dataIndex: "action" },
 ];
 
-const ListEmployee = () => {
+const Applicant = () => {
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [openDetail, setOpenDetail] = useState(false);
+  const [openAddApplicant, setOpenAddApplicant] = useState(false);
+  const [openEditApplicant, setOpenEditApplicant] = useState(false);
 
   const onSelectChange = (newSelectedRowKeys) => {
     console.log("selectedRowKeys changed: ", newSelectedRowKeys);
@@ -39,17 +41,15 @@ const ListEmployee = () => {
     console.log(value);
   };
 
-  const dataSource = Array.from({ length: 100 }).map((_, i) => ({
+  const dataSource = Array.from({ length: 8 }).map((_, i) => ({
     key: i,
     name: `Edward King ${i}`,
-    hireDate: "10/10/2025",
-    department: `Design`,
-    job: `UI/UX Designer`,
-    salary: "$3500",
+    appliedPosition: `UI/UX Designer`,
+    appliedDate: `04/03/2025`,
+    email: "kjsdngfjksd@gmail.com",
+    phone: "0123456789",
     status: (
-      <Tag color="purple" bordered={false}>
-        Active
-      </Tag>
+      <Tag color="error">Từ chối</Tag>
     ),
     action: (
       <Flex align="center" gap="small">
@@ -57,16 +57,17 @@ const ListEmployee = () => {
           className="table__icon"
           onClick={() => setOpenDetail(true)}
         />
-        <Link to="edit">
-          <EditOutlined className="table__icon" />
-        </Link>
+        <EditOutlined
+          className="table__icon"
+          onClick={() => setOpenEditApplicant(true)}
+        />
         <Popconfirm
-          title="Xoá nhân viên"
-          description="Bạn có chắc muốn xoá nhân viên này?"
+          title="Xoá"
+          description="Bạn có muốn xoá phòng ban này?"
           // onConfirm={confirm}
           // onCancel={cancel}
-          okText="Xoá"
-          cancelText="Huỷ"
+          okText="Yes"
+          cancelText="No"
         >
           <DeleteOutlined className="table__icon" />
         </Popconfirm>
@@ -74,16 +75,18 @@ const ListEmployee = () => {
     ),
   }));
 
-  useEffect(() => {}, []);
   return (
     <>
-      <div className="employee__list contain">
-        <Header title="Nhân viên" subTitle="Danh sách nhân viên" />
+      <div className="applicant__list contain">
+        <Header
+          title="Ứng viên"
+          subTitle="Danh sách ứng viên"
+        />
 
-        <Card className="employee__table table">
-          <div className="employee__table--head">
+        <Card className="applicant__table table">
+          <div className="applicant__table--head">
             <Flex align="center" justify="space-between">
-              <div className="employee__search">
+              <div className="applicant__search">
                 <Form onFinish={handleSearch}>
                   <Form.Item name="search">
                     <Input
@@ -95,13 +98,14 @@ const ListEmployee = () => {
                 </Form>
               </div>
 
-              <div className="employee__action">
+              <div className="applicant__action">
                 <Button
                   type="primary"
                   icon={<PlusCircleOutlined />}
                   size="large"
+                  onClick={() => setOpenAddApplicant(true)}
                 >
-                  <Link to="add">Thêm nhân viên</Link>
+                  Thêm ứng viên
                 </Button>
               </div>
             </Flex>
@@ -115,9 +119,11 @@ const ListEmployee = () => {
         </Card>
       </div>
 
-      <DetailEmployee open={openDetail} setOpen={setOpenDetail} />
+      <DetailApplicant open={openDetail} setOpen={setOpenDetail} />
+      <AddApplicant open={openAddApplicant} setOpen={setOpenAddApplicant} />
+      <EditApplicant open={openEditApplicant} setOpen={setOpenEditApplicant} />
     </>
   );
 };
 
-export default ListEmployee;
+export default Applicant;

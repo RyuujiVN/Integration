@@ -1,6 +1,6 @@
 import Header from "~/components/Header/Header";
 import React, { useState } from "react";
-import { Button, Flex, Form, Input, Table, Tag } from "antd";
+import { Button, Card, Flex, Form, Input, Popconfirm, Table, Tag } from "antd";
 import {
   EyeOutlined,
   EditOutlined,
@@ -46,7 +46,9 @@ const Job = () => {
     minSalary: `$4000`,
     maxSalary: `$6000`,
     department: (
-      <Tag color="success" bordered={false}>Design Department</Tag>
+      <Tag color="success" bordered={false}>
+        Design Department
+      </Tag>
     ),
     action: (
       <Flex align="center" gap="small">
@@ -58,7 +60,16 @@ const Job = () => {
           className="table__icon"
           onClick={() => setOpenEditJob(true)}
         />
-        <DeleteOutlined className="table__icon" />
+        <Popconfirm
+          title="Xoá nhân viên"
+          description="Bạn có chắc muốn xoá nhân viên này?"
+          // onConfirm={confirm}
+          // onCancel={cancel}
+          okText="Xoá"
+          cancelText="Huỷ"
+        >
+          <DeleteOutlined className="table__icon" />
+        </Popconfirm>
       </Flex>
     ),
   }));
@@ -68,7 +79,7 @@ const Job = () => {
       <div className="job__list contain">
         <Header title="Vị trí" subTitle="Danh sách vị trí" />
 
-        <div className="job__table table">
+        <Card className="job__table table">
           <div className="job__table--head">
             <Flex align="center" justify="space-between">
               <div className="job__search">
@@ -101,7 +112,7 @@ const Job = () => {
             rowSelection={rowSelection}
             style={{ marginTop: 20 }}
           />
-        </div>
+        </Card>
       </div>
 
       <DetailJob open={openDetail} setOpen={setOpenDetail} />

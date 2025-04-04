@@ -1,5 +1,14 @@
 .sidebar {
   padding: 20px 0;
+  position: sticky;
+  top: 0;
+  left: 0;
+  height: 100vh;
+}
+
+.sidebar .ant-layout-sider-children {
+  display: flex;
+  flex-direction: column;
 }
 
 .sidebar .sidebar__logo {

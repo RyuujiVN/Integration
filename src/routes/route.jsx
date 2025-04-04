@@ -8,6 +8,7 @@ import ListEmployee from "~/pages/Employee/ListEmployee";
 import Job from "~/pages/Job/Job";
 import Login from "~/pages/Login/Login";
 import Payroll from "~/pages/Payroll/Payroll";
+import Applicant from "~/pages/Applicant/Applicant";
 
 const route = [
   {
@@ -53,6 +54,11 @@ const route = [
       {
         path: "/job",
         element: <Job />,
+      },
+
+      {
+        path: "/applicant",
+        element: <Applicant />,
       },
     ],
   },

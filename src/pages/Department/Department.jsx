@@ -1,6 +1,6 @@
 import Header from "~/components/Header/Header";
 import React, { useState } from "react";
-import { Button, Flex, Form, Input, Popconfirm, Table, Tag } from "antd";
+import { Button, Card, Flex, Form, Input, Popconfirm, Table, Tag } from "antd";
 import {
   EyeOutlined,
   EditOutlined,
@@ -77,7 +77,7 @@ const Department = () => {
           subTitle="Chi tiết danh sách phòng ban"
         />
 
-        <div className="department__table table">
+        <Card className="department__table table">
           <div className="department__table--head">
             <Flex align="center" justify="space-between">
               <div className="department__search">
@@ -110,7 +110,7 @@ const Department = () => {
             rowSelection={rowSelection}
             style={{ marginTop: 20 }}
           />
-        </div>
+        </Card>
       </div>
 
       <DetailDepartment open={openDetail} setOpen={setOpenDetail} />

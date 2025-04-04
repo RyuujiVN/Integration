@@ -1,6 +1,6 @@
 import Header from "~/components/Header/Header";
 import React, { useState } from "react";
-import { Button, Flex, Form, Input, Table, Tag } from "antd";
+import { Button, Card, Flex, Form, Input, Popconfirm, Table, Tag } from "antd";
 import {
   EyeOutlined,
   EditOutlined,
@@ -58,7 +58,16 @@ const Payroll = () => {
           className="table__icon"
           onClick={() => setOpenEditPayroll(true)}
         />
-        <DeleteOutlined className="table__icon" />
+        <Popconfirm
+          title="Xoá nhân viên"
+          description="Bạn có chắc muốn xoá nhân viên này?"
+          // onConfirm={confirm}
+          // onCancel={cancel}
+          okText="Xoá"
+          cancelText="Huỷ"
+        >
+          <DeleteOutlined className="table__icon" />
+        </Popconfirm>
       </Flex>
     ),
   }));
@@ -68,7 +77,7 @@ const Payroll = () => {
       <div className="payroll__list contain">
         <Header title="Bảng lương" subTitle="Danh sách bảng lương" />
 
-        <div className="payroll__table table">
+        <Card className="payroll__table table">
           <div className="payroll__table--head">
             <Flex align="center" justify="space-between">
               <div className="payroll__search">
@@ -101,7 +110,7 @@ const Payroll = () => {
             rowSelection={rowSelection}
             style={{ marginTop: 20 }}
           />
-        </div>
+        </Card>
       </div>
 
       <DetailPayroll open={openDetail} setOpen={setOpenDetail} />
