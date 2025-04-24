@@ -8,6 +8,6 @@ namespace api.Dtos.Department
     public class CreateDepartmentDto
     {
         public int DepartmentID {get; set;}
-        public string DepartmentName { get; set; } = string.Empty;
+        public string Department_Name { get; set; } = string.Empty;
     }
 }
