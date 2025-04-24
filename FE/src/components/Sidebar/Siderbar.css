@@ -1,0 +1,31 @@
+.sidebar {
+  padding: 20px 0;
+  position: sticky;
+  top: 0;
+  left: 0;
+  height: 100vh;
+}
+
+.sidebar .ant-layout-sider-children {
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar .sidebar__logo {
+  display: flex;
+  justify-content: center;
+}
+
+.sidebar .ant-menu-item-selected {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.sidebar .ant-menu-item-selected::before {
+  content: "";
+  width: 3px;
+  height: 100%;
+  background: var(--color-purple);
+  position: absolute;
+  left: 0;
+}
