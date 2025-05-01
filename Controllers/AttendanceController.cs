@@ -48,20 +48,16 @@ namespace api.Controllers
             return Ok(attendance);
         }
         [HttpPost]
-        [Route("addAttendance")]
-        public async Task<IActionResult> addAttendance([FromBody] CreateAttendanceDto attendanceDto)
+        [Route("{idAttendance:int}/addAttendance")]
+        public async Task<IActionResult> addAttendance([FromBody] CreateAttendanceDto attendanceDto,int idAttendance)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
             
-            var attendanceCreate = await _attendanceRepo.addAttendanceAsync(attendanceDto);
-            if (attendanceCreate == null)
-            {
-                return NotFound("không tìm thấy dữ liệu chấm công");
-            }
-            return Ok(attendanceCreate);
+            var attendanceCreate = await _attendanceRepo.addAttendanceAsync(attendanceDto, idAttendance);
+            return CreatedAtAction(nameof(GetAttendanceById),new {idAttendance=attendanceDto.AttendanceID},attendanceCreate);
         }
         [HttpPut]
         [Route("{idAttendance:int}/updateAttendance")]

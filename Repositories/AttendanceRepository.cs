@@ -23,6 +23,7 @@ namespace api.Repositories
             return await _mySqlDBContext.Attendances
                 .Select(a => new AttendanceDto
                 {
+                    
                     WorkDays = a.WorkDays,
                     AbsentDays = a.AbsentDays,
                     LeaveDays = a.LeaveDays,
@@ -50,7 +51,7 @@ namespace api.Repositories
             }
             return attendance;
         }
-        public async Task<AttendanceDto> addAttendanceAsync(CreateAttendanceDto attendanceDto)
+        public async Task<AttendanceDto> addAttendanceAsync(CreateAttendanceDto attendanceDto,int idAttendance)
         {
             var attendanceModel = attendanceDto.toAttendanceCreate();
             await _mySqlDBContext.Attendances.AddAsync(attendanceModel);

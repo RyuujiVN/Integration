@@ -7,6 +7,7 @@ namespace api.Dtos.Attendance
 {
     public class AttendanceDto
     {
+        public int AttendanceID { get; set; }
         public int WorkDays { get; set; }
         public int AbsentDays { get; set; } = 0;
         public int LeaveDays { get; set; } = 0;

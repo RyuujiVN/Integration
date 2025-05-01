@@ -738,3 +738,7 @@ D:\Doan_Integration\Version\4\BE\BE\api\obj\Debug\net8.0\refint\api.dll
 D:\Doan_Integration\Version\4\BE\BE\api\obj\Debug\net8.0\api.pdb
 D:\Doan_Integration\Version\4\BE\BE\api\obj\Debug\net8.0\api.genruntimeconfig.cache
 D:\Doan_Integration\Version\4\BE\BE\api\obj\Debug\net8.0\ref\api.dll
+D:\Doan_Integration\Version\4\BE\BE\api\bin\Debug\net8.0\FE\jsconfig.json
+D:\Doan_Integration\Version\4\BE\BE\api\bin\Debug\net8.0\FE\package-lock.json
+D:\Doan_Integration\Version\4\BE\BE\api\bin\Debug\net8.0\FE\package.json
+D:\Doan_Integration\Version\4\BE\BE\api\obj\Debug\net8.0\api.sourcelink.json
