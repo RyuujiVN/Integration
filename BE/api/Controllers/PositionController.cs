@@ -40,10 +40,14 @@ namespace api.Controllers
         }
 
         [HttpPost("AddPosition")]
-        public async Task<ActionResult> AddPosition([FromBody] PositionDto positionDto) 
+        public async Task<ActionResult> AddPosition([FromBody] CreatePositionDto positionDto) 
         {
+            var exsitingPosition = await _positionRepo.GetPositionByIdAsync(positionDto.PositionID);
             if (positionDto == null){
-                return null;
+                return BadRequest("Dữ liệu không được để trống");
+            }
+            if (exsitingPosition!=null){
+                return BadRequest("Vị trí đã tồn tại");
             }
             await _positionRepo.AddAsync(positionDto);
             return CreatedAtAction(nameof(GetAllPositions), new { id = positionDto.PositionID }, positionDto);
@@ -60,7 +64,7 @@ namespace api.Controllers
             {
                 return NotFound(new { message = "Không tìm thấy vị trí có ID: " + id });
             }
-            return Ok(Mappers.PositionMapper.toPositionDtoFromUpdate(position, id));
+            return Ok(position);
         }
         [HttpDelete("delete/{id}")]
         public async Task<ActionResult> DeletePosition(int id)

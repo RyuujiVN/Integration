@@ -46,12 +46,12 @@ namespace api.Repositories
             bool checkSqlServer = sqlServerPosition != null;
             if (checkMySql && checkSqlServer)
             {
-                PositionDto positionDto = PositionMapper.toPositionDto(mySqlPosition, sqlServerPosition);
+                PositionDto positionDto = PositionMapper.toPositionDto(mySqlPosition!, sqlServerPosition!);
                 return Task.FromResult<PositionDto?>(positionDto);
             }
             return Task.FromResult<PositionDto?>(null);
         }
-        public Task<PositionDto> AddAsync(PositionDto positionDto)
+        public Task<PositionDto> AddAsync(CreatePositionDto positionDto)
         {
             var positionMySql = positionDto.toMySqlPosition();
             _mySqlDbContext.Positions.Add(positionMySql);
@@ -59,10 +59,10 @@ namespace api.Repositories
             var positionSqlServer = positionDto.toSqlServerPosition();
             _sqlServerDbContext.Positions.Add(positionSqlServer);
             _sqlServerDbContext.SaveChanges();
-            return Task.FromResult(positionDto);
+            return Task.FromResult(PositionMapper.toPositionDto(positionMySql, positionSqlServer));
         }
 
-        public Task<UpdatePositionDto?> UpdatePositionAsync(int id, UpdatePositionDto positionDto)
+        public Task<PositionDto?> UpdatePositionAsync(int id, UpdatePositionDto positionDto)
         {
             var mySqlPosition = _mySqlDbContext.Positions
             .FirstOrDefault(d => d.PositionID == id);
@@ -72,16 +72,14 @@ namespace api.Repositories
             bool checkSqlServer = sqlServerPosition != null;
             if (checkMySql && checkSqlServer)
             {
-                mySqlPosition.PositionName = positionDto.PositionName;
-
-                sqlServerPosition.PositionName = positionDto.PositionName;
-                sqlServerPosition.UpdatedAt = positionDto.UpdatedAt;
-                sqlServerPosition.CreatedAt = positionDto.CreatedAt;
+                mySqlPosition!.PositionName = positionDto.PositionName;
+                sqlServerPosition!.PositionName = positionDto.PositionName;
+                sqlServerPosition.UpdatedAt = DateTime.Now;
                 _mySqlDbContext.SaveChanges();
                 _sqlServerDbContext.SaveChanges();
-                return Task.FromResult<UpdatePositionDto?>(Mappers.PositionMapper.toUpdatePositionDto(mySqlPosition, sqlServerPosition));
+                return Task.FromResult<PositionDto?>(Mappers.PositionMapper.toPositionDto(mySqlPosition, sqlServerPosition));
             }
-            return Task.FromResult<UpdatePositionDto?>(null);
+            return Task.FromResult<PositionDto?>(null);
         }
 
         public Task<bool> DeletePositionAsync(int id)
@@ -94,8 +92,8 @@ namespace api.Repositories
             bool checkSqlServer = sqlServerPosition != null;
             if (checkMySql && checkSqlServer)
             {
-                _mySqlDbContext.Positions.Remove(mySqlPosition);
-                _sqlServerDbContext.Positions.Remove(sqlServerPosition);
+                _mySqlDbContext.Positions.Remove(mySqlPosition!);
+                _sqlServerDbContext.Positions.Remove(sqlServerPosition!);
                 _mySqlDbContext.SaveChanges();
                 _sqlServerDbContext.SaveChanges();
                 return Task.FromResult(true);

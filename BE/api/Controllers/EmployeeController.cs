@@ -49,13 +49,52 @@ namespace api.Controllers
             {
                 return BadRequest("Dữ liệu không hợp lệ, vui lòng kiểm tra lại");
             }
+
             var checkExist = await _employeeRepo.GetEmployeeByIdAsync(employeeDto.EmployeeID);
             if (checkExist != null)
             {
                 return BadRequest("Nhân viên đã tồn tại, vui lòng kiểm tra lại");
             }
-            var created = await _employeeRepo.AddAsync(employeeDto);
-            return CreatedAtAction(nameof(GetEmployeeById), new { id = created.EmployeeID }, created);
+            if (employeeDto.DateOfBirth >= DateTime.Now)
+            {
+                return BadRequest("Ngày sinh không hợp lệ (không thể nằm ở tương lai)");
+            }
+
+            if (employeeDto.HireDate > DateTime.Now)
+            {
+                return BadRequest("Ngày nhận việc không hợp lệ (không thể trong tương lai)");
+            }
+
+            if (!string.IsNullOrEmpty(employeeDto.Email) && !IsValidEmail(employeeDto.Email))
+            {
+                return BadRequest("Địa chỉ email không hợp lệ");
+            }
+
+            try
+            {
+                var created = await _employeeRepo.AddAsync(employeeDto);
+                return CreatedAtAction(nameof(GetEmployeeById), new { id = created.EmployeeID }, created);
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Đã xảy ra lỗi khi thêm nhân viên: " + ex.Message);
+            }
+        }
+        private bool IsValidEmail(string email)
+        {
+            try
+            {
+                var addr = new System.Net.Mail.MailAddress(email);
+                return addr.Address == email;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         [HttpPut("update/{id}")]
