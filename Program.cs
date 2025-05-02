@@ -29,6 +29,7 @@ builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
 builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 builder.Services.AddScoped<IAttendanceRepository, AttendanceRepository>();
 builder.Services.AddScoped<IDividendRepository, DividendRepository>();
+builder.Services.AddScoped<ISalaryRepository, SalaryRepository>();
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())

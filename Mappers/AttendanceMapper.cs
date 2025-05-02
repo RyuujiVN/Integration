@@ -9,10 +9,12 @@ namespace api.Mappers
 {
     public static class AttendanceMapper
     {
-        public static AttendanceDto toAttendenceDto(this Attendance attendance)
+        public static AttendanceDto toAttendanceDto(this Attendance attendance)
         {
             return new AttendanceDto
             {
+                AttendanceID = attendance.AttendanceID,
+                EmployeeID = attendance.EmployeeID,
                 WorkDays = attendance.WorkDays,
                 AbsentDays = attendance.AbsentDays,
                 LeaveDays = attendance.LeaveDays,
@@ -23,7 +25,9 @@ namespace api.Mappers
         public static Attendance toAttendanceCreate(this CreateAttendanceDto createAttendanceDto)
         {
             return new Attendance
-            {
+            {   
+                EmployeeID = createAttendanceDto.EmployeeID,
+                AttendanceID = createAttendanceDto.AttendanceID,
                 WorkDays = createAttendanceDto.WorkDays,
                 AbsentDays = createAttendanceDto.AbsentDays,
                 LeaveDays = createAttendanceDto.LeaveDays,

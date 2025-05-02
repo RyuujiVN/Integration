@@ -13,8 +13,10 @@ namespace api.Controllers
     public class AttendanceController : ControllerBase
     {
         private readonly IAttendanceRepository _attendanceRepo;
-        public AttendanceController(IAttendanceRepository attendanceRepo)
+        private readonly IEmployeeRepository _employeeRepo;
+        public AttendanceController(IAttendanceRepository attendanceRepo, IEmployeeRepository employeeRepo)
         {
+            _employeeRepo = employeeRepo;
             _attendanceRepo = attendanceRepo;
         }
         [HttpGet]
@@ -48,15 +50,25 @@ namespace api.Controllers
             return Ok(attendance);
         }
         [HttpPost]
-        [Route("{idAttendance:int}/addAttendance")]
-        public async Task<IActionResult> addAttendance([FromBody] CreateAttendanceDto attendanceDto,int idAttendance)
+        [Route("addAttendance")]
+        public async Task<IActionResult> addAttendance([FromBody] CreateAttendanceDto attendanceDto)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            
-            var attendanceCreate = await _attendanceRepo.addAttendanceAsync(attendanceDto, idAttendance);
+            var checkExist = await _attendanceRepo.GetAttendanceByIdAsync(attendanceDto.AttendanceID);
+            if (checkExist != null)
+            {
+                return BadRequest("Dữ liệu chấm công đã tồn tại, vui lòng kiểm tra lại");
+            }
+            int idEmployee = attendanceDto.EmployeeID ?? 0;
+            var checkExistEmployee = await _employeeRepo.GetEmployeeByIdAsync(idEmployee);
+            if (checkExistEmployee == null)
+            {
+                return BadRequest("Nhân viên không tồn tại, vui lòng kiểm tra lại");
+            }
+            var attendanceCreate = await _attendanceRepo.addAttendanceAsync(attendanceDto);
             return CreatedAtAction(nameof(GetAttendanceById),new {idAttendance=attendanceDto.AttendanceID},attendanceCreate);
         }
         [HttpPut]
@@ -67,7 +79,6 @@ namespace api.Controllers
             {
                 return BadRequest(ModelState);
             }
-           
             var attendanceUpdate = await _attendanceRepo.UpdateAttendanceAsync(attendanceDto, idAttendance);
             if (attendanceUpdate == null)
             {

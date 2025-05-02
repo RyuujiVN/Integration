@@ -23,7 +23,8 @@ namespace api.Repositories
             return await _mySqlDBContext.Attendances
                 .Select(a => new AttendanceDto
                 {
-                    
+                    EmployeeID = a.EmployeeID,
+                    AttendanceID = a.AttendanceID,
                     WorkDays = a.WorkDays,
                     AbsentDays = a.AbsentDays,
                     LeaveDays = a.LeaveDays,
@@ -38,6 +39,8 @@ namespace api.Repositories
                 .Where(a => a.AttendanceID == idAttendance)
                 .Select(a => new AttendanceDto
                 {
+                    AttendanceID = a.AttendanceID,
+                    EmployeeID = a.EmployeeID,
                     WorkDays = a.WorkDays,
                     AbsentDays = a.AbsentDays,
                     LeaveDays = a.LeaveDays,
@@ -51,12 +54,12 @@ namespace api.Repositories
             }
             return attendance;
         }
-        public async Task<AttendanceDto> addAttendanceAsync(CreateAttendanceDto attendanceDto,int idAttendance)
+        public async Task<AttendanceDto> addAttendanceAsync(CreateAttendanceDto attendanceDto)
         {
             var attendanceModel = attendanceDto.toAttendanceCreate();
             await _mySqlDBContext.Attendances.AddAsync(attendanceModel);
             await _mySqlDBContext.SaveChangesAsync();
-            var returnDto = AttendanceMapper.toAttendenceDto(attendanceModel);
+            var returnDto = AttendanceMapper.toAttendanceDto(attendanceModel);
             return returnDto;
         }
         public async Task<AttendanceDto?> UpdateAttendanceAsync(UpdateAttendanceDto attendanceDto, int idAttendance)
@@ -71,7 +74,7 @@ namespace api.Repositories
             attendanceModel.LeaveDays = attendanceDto.LeaveDays;
             attendanceModel.AttendanceMonth = attendanceDto.AttendanceMonth;
             await _mySqlDBContext.SaveChangesAsync();
-            return AttendanceMapper.toAttendenceDto(attendanceModel);
+            return AttendanceMapper.toAttendanceDto(attendanceModel);
         }
         public async Task<bool> DeleteAttendanceAsync(int idAttendance)
         {

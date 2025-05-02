@@ -10,7 +10,7 @@ namespace api.Interfaces
     {
         Task<List<AttendanceDto>> GetAllAttendancesAsync();
         Task<AttendanceDto?> GetAttendanceByIdAsync(int idAttendance);
-        Task<AttendanceDto> addAttendanceAsync(CreateAttendanceDto attendanceDto, int idEmployee);
+        Task<AttendanceDto> addAttendanceAsync(CreateAttendanceDto attendanceDto);
         Task<AttendanceDto?> UpdateAttendanceAsync(UpdateAttendanceDto attendanceDto, int idAttendance);
         Task<bool> DeleteAttendanceAsync(int idAttendance);
     }
