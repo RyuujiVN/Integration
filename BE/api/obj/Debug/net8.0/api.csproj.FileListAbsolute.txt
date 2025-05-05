@@ -743,9 +743,6 @@ D:\Doan_Integration\Version\4\BE\BE\api\bin\Debug\net8.0\FE\package-lock.json
 D:\Doan_Integration\Version\4\BE\BE\api\bin\Debug\net8.0\FE\package.json
 D:\Doan_Integration\Version\4\BE\BE\api\obj\Debug\net8.0\api.sourcelink.json
 F:\kì 2\integration\đồ án\code\backend\code của thành\Integration\BE\api\bin\Debug\net8.0\appsettings.Development.json
-F:\kì 2\integration\đồ án\code\backend\code của thành\Integration\BE\api\bin\Debug\net8.0\FE\jsconfig.json
-F:\kì 2\integration\đồ án\code\backend\code của thành\Integration\BE\api\bin\Debug\net8.0\FE\package-lock.json
-F:\kì 2\integration\đồ án\code\backend\code của thành\Integration\BE\api\bin\Debug\net8.0\FE\package.json
 F:\kì 2\integration\đồ án\code\backend\code của thành\Integration\BE\api\bin\Debug\net8.0\api.staticwebassets.endpoints.json
 F:\kì 2\integration\đồ án\code\backend\code của thành\Integration\BE\api\bin\Debug\net8.0\appsettings.json
 F:\kì 2\integration\đồ án\code\backend\code của thành\Integration\BE\api\bin\Debug\net8.0\api.exe
@@ -894,3 +891,4 @@ F:\kì 2\integration\đồ án\code\backend\code của thành\Integration\BE\api
 F:\kì 2\integration\đồ án\code\backend\code của thành\Integration\BE\api\obj\Debug\net8.0\api.pdb
 F:\kì 2\integration\đồ án\code\backend\code của thành\Integration\BE\api\obj\Debug\net8.0\api.genruntimeconfig.cache
 F:\kì 2\integration\đồ án\code\backend\code của thành\Integration\BE\api\obj\Debug\net8.0\ref\api.dll
+F:\kì 2\integration\đồ án\code\backend\code của thành\Integration\BE\api\bin\Debug\net8.0\Microsoft.Bcl.Memory.dll
