@@ -99,7 +99,7 @@ const Department = () => {
                   size="large"
                   onClick={() => setOpenAddDepartment(true)}
                 >
-                  Thêm phòng ban
+                  Thêm sadjfnjasfd
                 </Button>
               </div>
             </Flex>
