@@ -6,6 +6,7 @@ using api.Interfaces;
 using api.Models;
 using api.Repositories;
 using api.Service;
+using api.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -67,7 +68,7 @@ builder.Services.AddDbContext<AccountDBContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("AccountConnection"));
 });
-
+builder.Services.AddMemoryCache();
 //builder.Services.AddScoped<IntegrationService>();
 builder.Services.AddLogging(configure => configure.AddConsole());
 //builder.Services.AddScoped<DepartmentService>();
@@ -79,7 +80,8 @@ builder.Services.AddScoped<IDividendRepository, DividendRepository>();
 builder.Services.AddScoped<ISalaryRepository, SalaryRepository>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IAccountRepository, AccountRepository>();
-
+builder.Services.AddScoped<IEmailService, EmailService>();
+builder.Services.AddSingleton<ICacheService, CacheService>();
 builder.Services.AddIdentity<Account, IdentityRole>(options => 
 {
     options.Password.RequireDigit = true;

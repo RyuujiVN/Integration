@@ -15,6 +15,8 @@ namespace api.Controller
     [ApiController]
     public class AccountController : ControllerBase
     {
+        private readonly IEmailService _emailService;
+        private readonly ICacheService _cacheService;
         private readonly IAccountRepository _accountRepository;
         private readonly UserManager<Account> _userManager;
         private readonly ITokenService _tokenService;
@@ -26,13 +28,17 @@ namespace api.Controller
             UserManager<Account> userManager,
             ITokenService tokenService,
             SignInManager<Account> signInManager,
-            RoleManager<IdentityRole> roleManager)
+            RoleManager<IdentityRole> roleManager,
+            IEmailService emailService,
+            ICacheService cacheService)
         {
             _accountRepository = accountRepository;
             _userManager = userManager;
             _tokenService = tokenService;
             _signInManager = signInManager;
             _roleManager = roleManager;
+            _emailService = emailService;
+            _cacheService = cacheService;
         }
 
         [HttpGet("all")]
@@ -256,6 +262,68 @@ namespace api.Controller
             catch (SecurityTokenException ex)
             {
                 return Unauthorized("Invalid token");
+            }
+        }
+        [HttpPost("forgot-password")]
+        public async Task<IActionResult> ForgotPassword([FromBody] ForgotPasswordDto dto)
+        {
+            var account = await _userManager.FindByEmailAsync(dto.Email);
+            if (account == null)
+                return NotFound("Email không tồn tại trong hệ thống");
+
+            var otp = new Random().Next(100000, 999999).ToString();
+            _cacheService.SetOtp(dto.Email, otp);
+
+            await _emailService.SendOtpEmailAsync(dto.Email, otp);
+
+            return Ok("Mã OTP đã được gửi đến email của bạn");
+        }
+
+        [HttpPost("verify-otp")]
+        public IActionResult VerifyOtp([FromBody] VerifyOtpDto dto)
+        {
+            var storedOtp = _cacheService.GetOtp(dto.Email);
+            if (string.IsNullOrEmpty(storedOtp))
+                return BadRequest("Mã OTP đã hết hạn");
+
+            if (storedOtp != dto.OtpCode)
+                return BadRequest("Mã OTP không chính xác");
+
+            return Ok("Mã OTP chính xác");
+        }
+
+        [HttpPost("reset-password")]
+        public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordDto dto)
+        {
+            var storedOtp = _cacheService.GetOtp(dto.Email);
+            if (string.IsNullOrEmpty(storedOtp) || storedOtp != dto.OtpCode)
+                return BadRequest("Mã OTP không hợp lệ hoặc đã hết hạn");
+
+            var account = await _userManager.FindByEmailAsync(dto.Email);
+            if (account == null)
+                return NotFound("Email không tồn tại trong hệ thống");
+
+            var token = await _userManager.GeneratePasswordResetTokenAsync(account);
+            var result = await _userManager.ResetPasswordAsync(account, token, dto.NewPassword);
+
+            if (!result.Succeeded)
+                return BadRequest("Không thể đặt lại mật khẩu");
+
+            _cacheService.RemoveOtp(dto.Email);
+
+            return Ok("Đặt lại mật khẩu thành công");
+        }
+        [HttpPost("test-email")]
+        public async Task<IActionResult> TestEmail()
+        {
+            try
+            {
+                await _emailService.SendOtpEmailAsync("quatangmobif@gmail.com", "123456");
+                return Ok("Email sent successfully");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Email configuration error: {ex.Message}");
             }
         }
     }

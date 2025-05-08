@@ -892,3 +892,8 @@ F:\kì 2\integration\đồ án\code\backend\code của thành\Integration\BE\api
 F:\kì 2\integration\đồ án\code\backend\code của thành\Integration\BE\api\obj\Debug\net8.0\api.genruntimeconfig.cache
 F:\kì 2\integration\đồ án\code\backend\code của thành\Integration\BE\api\obj\Debug\net8.0\ref\api.dll
 F:\kì 2\integration\đồ án\code\backend\code của thành\Integration\BE\api\bin\Debug\net8.0\Microsoft.Bcl.Memory.dll
+F:\kì 2\integration\đồ án\code\backend\code của thành\Integration\BE\api\bin\Debug\net8.0\BouncyCastle.Cryptography.dll
+F:\kì 2\integration\đồ án\code\backend\code của thành\Integration\BE\api\bin\Debug\net8.0\MailKit.dll
+F:\kì 2\integration\đồ án\code\backend\code của thành\Integration\BE\api\bin\Debug\net8.0\MimeKit.dll
+F:\kì 2\integration\đồ án\code\backend\code của thành\Integration\BE\api\bin\Debug\net8.0\System.Security.Cryptography.Pkcs.dll
+F:\kì 2\integration\đồ án\code\backend\code của thành\Integration\BE\api\bin\Debug\net8.0\runtimes\win\lib\net8.0\System.Security.Cryptography.Pkcs.dll
