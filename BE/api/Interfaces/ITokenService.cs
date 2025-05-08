@@ -8,6 +8,9 @@ namespace api.Interfaces
 {
     public interface ITokenService
     {
-        Task<string> CreateToken(Account user);
+        Task<(string AccessToken, string RefreshToken)> CreateTokens(Account user);
+        Task<(string AccessToken, string RefreshToken)> RefreshTokens(string refreshToken);
+        string CreateRefreshToken();
+        Task<string> CreateAccessToken(Account account);  
     }
 }

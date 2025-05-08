@@ -7,6 +7,7 @@ using api.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 
 namespace api.Controller
 {
@@ -82,6 +83,7 @@ namespace api.Controller
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
+
             if (createDto.DateOfBirth >= DateTime.Now)
             {
                 return BadRequest("Ngày sinh không hợp lệ (không thể nằm ở tương lai)");
@@ -102,13 +104,15 @@ namespace api.Controller
             try
             {
                 await _accountRepository.CreateAsync(account, createDto.PassWord);
-
                 await _accountRepository.UpdateRoleAsync(account.UserName, roleName);
+
+                var (accessToken, refreshToken) = await _tokenService.CreateTokens(account);
 
                 return Ok(new NewAccountDto
                 {
                     UserName = account.UserName,
-                    Token = await _tokenService.CreateToken(account)
+                    AccessToken = accessToken,
+                    RefreshToken = refreshToken
                 });
             }
             catch (InvalidOperationException ex)
@@ -136,10 +140,13 @@ namespace api.Controller
             account.LastLogin = DateTime.UtcNow;
             await _userManager.UpdateAsync(account);
 
-            return Ok(new NewAccountDto
+            var (accessToken, refreshToken) = await _tokenService.CreateTokens(account);
+
+            return Ok(new
             {
                 UserName = account.UserName,
-                Token = await _tokenService.CreateToken(account)
+                AccessToken = accessToken,
+                RefreshToken = refreshToken
             });
         }
 
@@ -168,7 +175,7 @@ namespace api.Controller
                 return Ok(new
                 {
                     account = updatedAccount.ToAccountDto(),
-                    token = await _tokenService.CreateToken(updatedAccount)
+                    token = await _tokenService.CreateTokens(updatedAccount)
                 });
             }
             catch (InvalidOperationException ex)
@@ -210,7 +217,6 @@ namespace api.Controller
             if (!success)
                 return BadRequest($"Không thể cập nhật role '{roleName}' cho người dùng '{username}'");
 
-            // Lấy tài khoản đã cập nhật và tạo token mới
             var updatedAccount = await _accountRepository.GetByUsernameAsync(username);
             if (updatedAccount == null)
                 return NotFound("Tài khoản không tồn tại");
@@ -219,8 +225,38 @@ namespace api.Controller
             {
                 message = $"Đã cập nhật role thành '{roleName}' cho người dùng '{username}'",
                 account = (await _accountRepository.GetByUsernameAsync(username)).ToAccountDto(),
-                token = await _tokenService.CreateToken(updatedAccount)
+                token = await _tokenService.CreateTokens(updatedAccount)
             });
+        }
+        [HttpPost("refresh")]
+        [Authorize]
+        public async Task<IActionResult> RefreshToken()
+        {
+            try
+            {
+                var username = User.FindFirstValue(ClaimTypes.Name);
+                var account = await _accountRepository.GetByUsernameAsync(username);
+
+                if (account == null)
+                    return Unauthorized("Invalid account");
+
+                if (string.IsNullOrEmpty(account.RefreshToken))
+                    return Unauthorized("No refresh token found");
+
+                if (account.RefreshTokenExpiryTime <= DateTime.UtcNow)
+                    return Unauthorized("Refresh token has expired. Please login again.");
+
+                var newAccessToken = await _tokenService.CreateAccessToken(account);
+
+                return Ok(new
+                {
+                    AccessToken = newAccessToken
+                });
+            }
+            catch (SecurityTokenException ex)
+            {
+                return Unauthorized("Invalid token");
+            }
         }
     }
 }
