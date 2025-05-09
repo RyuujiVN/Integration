@@ -2,7 +2,7 @@ import { Modal } from "antd";
 import React from "react";
 
 const DetailDepartment = (props) => {
-  const { open, setOpen } = props;
+  const { open, setOpen, department } = props;
 
   return (
     <>
@@ -13,10 +13,10 @@ const DetailDepartment = (props) => {
         footer={null}
       >
         <p>
-          <strong>Tên phòng ban:</strong>
+          <strong>Mã phòng ban:</strong> {department?.departmentID}
         </p>
         <p>
-          <strong>Mô tả:</strong>
+          <strong>Tên phòng ban:</strong> {department?.departmentName}
         </p>
       </Modal>
     </>

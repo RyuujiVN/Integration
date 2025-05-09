@@ -1,15 +1,34 @@
 import { Button, Form, Input, Modal } from "antd";
 import React from "react";
+import { fetchDepartmentAddApi } from "~/redux/department/departmentSlice";
+import { useDispatch } from "react-redux";
+import { message } from "antd";
 
 const AddDepartment = (props) => {
   const { open, setOpen } = props;
+  const dispatch = useDispatch();
+  const [messageApi, messageContextHolder] = message.useMessage();
   const [form] = Form.useForm();
-  const handleAdd = (value) => {
-    console.log(value);
+
+  const success = () => {
+    messageApi.open({
+      type: "success",
+      content: "Thêm thành công!",
+    });
+  };
+
+  const handleAdd = async (value) => {
+    try {
+      dispatch(fetchDepartmentAddApi(value));
+      success();
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
     <>
+      {messageContextHolder}
       <Modal
         title={<h4 className="modal__title">Thêm phòng ban</h4>}
         open={open}
@@ -30,8 +49,8 @@ const AddDepartment = (props) => {
       >
         <Form form={form} onFinish={handleAdd} layout="vertical">
           <Form.Item
-            name="name"
-            label="Tên phòng ban"
+            name="departmentID"
+            label="Id phòng ban"
             rules={[
               {
                 required: true,
@@ -42,8 +61,17 @@ const AddDepartment = (props) => {
             <Input />
           </Form.Item>
 
-          <Form.Item name="description" label="Mô tả">
-            <Input.TextArea showCount maxLength={255} />
+          <Form.Item
+            name="departmentName"
+            label="Tên phòng ban"
+            rules={[
+              {
+                required: true,
+                message: "Vui lòng nhập tên phòng ban",
+              },
+            ]}
+          >
+            <Input />
           </Form.Item>
         </Form>
       </Modal>

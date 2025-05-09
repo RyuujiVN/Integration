@@ -50,7 +50,7 @@ const items = [
   {
     key: "job",
     icon: <JobIcon />,
-    label: <Link to="/job">Jobs</Link>,
+    label: <Link to="/job">Vị trí</Link>,
   },
 
   {

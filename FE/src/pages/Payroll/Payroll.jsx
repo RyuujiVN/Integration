@@ -113,9 +113,17 @@ const Payroll = () => {
         </Card>
       </div>
 
-      <DetailPayroll open={openDetail} setOpen={setOpenDetail} />
-      <AddPayroll open={openAddPayroll} setOpen={setOpenAddPayroll} />
-      <EditPayroll open={openEditPayroll} setOpen={setOpenEditPayroll} />
+      {openDetail && (
+        <DetailPayroll open={openDetail} setOpen={setOpenDetail} />
+      )}
+
+      {openAddPayroll && (
+        <AddPayroll open={openAddPayroll} setOpen={setOpenAddPayroll} />
+      )}
+
+      {openEditPayroll && (
+        <EditPayroll open={openEditPayroll} setOpen={setOpenEditPayroll} />
+      )}
     </>
   );
 };

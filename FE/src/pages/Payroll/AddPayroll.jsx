@@ -1,9 +1,11 @@
 import { Button, Form, Input, InputNumber, Modal, Select } from "antd";
 import React from "react";
+import { formatCurrency, parseCurrency } from "~/utils/format";
 
 const AddPayroll = (props) => {
   const { open, setOpen } = props;
   const [form] = Form.useForm();
+
   const handleAdd = (value) => {
     console.log(value);
   };
@@ -30,16 +32,21 @@ const AddPayroll = (props) => {
       >
         <Form form={form} onFinish={handleAdd} layout="vertical">
           <Form.Item
-            name="department_id"
-            label="Chọn phòng ban:"
+            name="salaryID"
+            label="Mã lương"
             rules={[
               {
                 required: true,
-                message: "Vui lòng nhập chọn phòng ban",
+                message: "Vui lòng nhập mã lương",
               },
             ]}
           >
-            <Select />
+            <InputNumber
+              className="input"
+              min={0}
+              formatter={formatCurrency}
+              parser={parseCurrency}
+            />
           </Form.Item>
 
           <Form.Item
@@ -56,20 +63,7 @@ const AddPayroll = (props) => {
           </Form.Item>
 
           <Form.Item
-            name="bonus"
-            label="Nhập thưởng:"
-            rules={[
-              {
-                required: true,
-                message: "Vui lòng nhập thưởng",
-              },
-            ]}
-          >
-            <InputNumber className="input" min={0} />
-          </Form.Item>
-
-          <Form.Item
-            name="salary_per_month"
+            name="salaryMonth"
             label="Nhập lương tháng:"
             rules={[
               {
@@ -78,7 +72,66 @@ const AddPayroll = (props) => {
               },
             ]}
           >
-            <InputNumber className="input" min={0} />
+            <InputNumber
+              className="input"
+              min={0}
+              formatter={formatCurrency}
+              parser={parseCurrency}
+            />
+          </Form.Item>
+
+          <Form.Item
+            name="baseSalary"
+            label="Nhập lương cơ bản:"
+            rules={[
+              {
+                required: true,
+                message: "Vui lòng nhập lương cơ bản",
+              },
+            ]}
+          >
+            <InputNumber
+              className="input"
+              min={0}
+              formatter={formatCurrency}
+              parser={parseCurrency}
+            />
+          </Form.Item>
+
+          <Form.Item
+            name="bonus"
+            label="Nhập thưởng"
+            rules={[
+              {
+                required: true,
+                message: "Vui lòng nhập thưởng",
+              },
+            ]}
+          >
+            <InputNumber
+              className="input"
+              min={0}
+              formatter={formatCurrency}
+              parser={parseCurrency}
+            />
+          </Form.Item>
+
+          <Form.Item
+            name="deductions"
+            label="Nhập khấu trừ:"
+            rules={[
+              {
+                required: true,
+                message: "Vui lòng nhập khấu trừ",
+              },
+            ]}
+          >
+            <InputNumber
+              className="input"
+              min={0}
+              formatter={formatCurrency}
+              parser={parseCurrency}
+            />
           </Form.Item>
         </Form>
       </Modal>

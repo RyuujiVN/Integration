@@ -1,15 +1,29 @@
-import { Button, Form, Input, Modal } from "antd";
+import { Button, Form, Input, message, Modal } from "antd";
+import { useDispatch } from "react-redux";
+import messageUtil from "~/utils/message";
+import { fetchDepartmentEditApi } from "~/redux/department/departmentSlice";
 
 export const EditDepartment = (props) => {
-  const { open, setOpen } = props;
+  const { open, setOpen, department } = props;
+  const [messageApi, messageContextHolder] = message.useMessage();
+
+  const dispatch = useDispatch();
   const [form] = Form.useForm();
 
-  const handleEdit = (value) => {
-    console.log(value);
+  const handleEdit = async (value) => {
+    await dispatch(
+      fetchDepartmentEditApi({
+        id: department.departmentID,
+        data: value,
+      })
+    );
+
+    messageUtil(messageApi, "success", "Chỉnh sửa thành công!");
   };
 
   return (
     <>
+      {messageContextHolder}
       <Modal
         title={<h4 className="modal__title">Chỉnh sửa phòng ban</h4>}
         open={open}
@@ -23,9 +37,14 @@ export const EditDepartment = (props) => {
           </Button>,
         ]}
       >
-        <Form form={form} layout="vertical" onFinish={handleEdit}>
+        <Form
+          form={form}
+          layout="vertical"
+          onFinish={handleEdit}
+          initialValues={department}
+        >
           <Form.Item
-            name="name"
+            name="departmentName"
             label="Tên phòng ban"
             rules={[
               {
@@ -35,10 +54,6 @@ export const EditDepartment = (props) => {
             ]}
           >
             <Input />
-          </Form.Item>
-
-          <Form.Item name="description" label="Mô tả">
-            <Input.TextArea maxLength={255} showCount />
           </Form.Item>
         </Form>
       </Modal>
