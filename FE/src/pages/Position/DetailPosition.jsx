@@ -1,8 +1,8 @@
 import { Modal } from "antd";
 import React from "react";
 
-const DetailJob = (props) => {
-  const { open, setOpen } = props;
+const DetailPosition = (props) => {
+  const { open, setOpen, position } = props;
 
   return (
     <>
@@ -13,14 +13,15 @@ const DetailJob = (props) => {
         footer={null}
       >
         <p>
-          <strong>Tên phòng ban:</strong>
+          <span className="modal__label">Mã vị trí:</span> {position.positionID}
         </p>
         <p>
-          <strong>Mô tả:</strong>
+          <span className="modal__label">Tên vị trí:</span>{" "}
+          {position.positionName}
         </p>
       </Modal>
     </>
   );
 };
 
-export default DetailJob;
+export default DetailPosition;

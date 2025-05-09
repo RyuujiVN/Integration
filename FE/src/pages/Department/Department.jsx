@@ -18,6 +18,7 @@ import {
   fetchDepartmentDetailsApi,
 } from "~/redux/department/departmentSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
 
 const columns = [
   { title: "Tên phòng ban", dataIndex: "name" },
@@ -42,7 +43,10 @@ const Department = () => {
   };
 
   const handleDelete = (departmentID) => {
-    dispatch(fetchDepartmentDeleteApi(departmentID));
+    toast.promise(dispatch(fetchDepartmentDeleteApi(departmentID)), {
+      pending: "Đang xoá...",
+      success: "Xoá phòng ban thành công!",
+    });
     dispatch(deleteDepartment(departmentID));
   };
 

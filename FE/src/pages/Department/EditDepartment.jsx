@@ -1,29 +1,30 @@
-import { Button, Form, Input, message, Modal } from "antd";
+import { Button, Form, Input, Modal } from "antd";
 import { useDispatch } from "react-redux";
-import messageUtil from "~/utils/message";
 import { fetchDepartmentEditApi } from "~/redux/department/departmentSlice";
+import { toast } from "react-toastify";
 
 export const EditDepartment = (props) => {
   const { open, setOpen, department } = props;
-  const [messageApi, messageContextHolder] = message.useMessage();
 
   const dispatch = useDispatch();
   const [form] = Form.useForm();
 
-  const handleEdit = async (value) => {
-    await dispatch(
-      fetchDepartmentEditApi({
-        id: department.departmentID,
-        data: value,
-      })
+  const handleEdit = (value) => {
+    toast.promise(
+      dispatch(
+        fetchDepartmentEditApi({
+          id: department.departmentID,
+          data: value,
+        })
+      ),
+      {
+        pending: "Đang chỉnh sửa...",
+      }
     );
-
-    messageUtil(messageApi, "success", "Chỉnh sửa thành công!");
   };
 
   return (
     <>
-      {messageContextHolder}
       <Modal
         title={<h4 className="modal__title">Chỉnh sửa phòng ban</h4>}
         open={open}

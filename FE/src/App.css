@@ -54,6 +54,10 @@ html {
   font-weight: 700;
 }
 
+.modal__label {
+  font-weight: 700;
+}
+
 a {
   color: #000000;
 }

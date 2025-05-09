@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import { toast } from 'react-toastify'
 import instance from '~/api/intance'
 
 // Khởi tạo giá trị State cho departmentSlice
@@ -63,12 +64,14 @@ export const departmentSlice = createSlice({
 
     builder.addCase(fetchDepartmentAddApi.fulfilled, (state, action) => {
       state.currentDepartment.push(action.payload)
+      toast.success("Thêm phòng ban thành công!")
     })
 
     builder.addCase(fetchDepartmentEditApi.fulfilled, (state, action) => {
       const index = state.currentDepartment.findIndex(item => item.departmentID == action.payload.departmentID)
 
       state.currentDepartment[index] = action.payload
+      toast.success("Chỉnh sửa phòng ban thành công!")
     })
   }
 })

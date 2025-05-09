@@ -1,11 +1,21 @@
 import { Button, Form, Input, InputNumber, Modal, Select } from "antd";
 import React from "react";
+import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
+import { editPositionApi } from "~/redux/position/positionSlice";
 
-const EditJob = (props) => {
-  const { open, setOpen } = props;
+const EditPosition = (props) => {
+  const { open, setOpen, position } = props;
   const [form] = Form.useForm();
+  const dispatch = useDispatch();
+
   const handleEdit = (value) => {
-    console.log(value);
+    toast.promise(
+      dispatch(editPositionApi({ id: position.positionID, data: value })),
+      {
+        pending: "Đang cập nhật...",
+      }
+    );
   };
 
   return (
@@ -28,35 +38,23 @@ const EditJob = (props) => {
           </Button>,
         ]}
       >
-        <Form form={form} onFinish={handleEdit} layout="vertical">
+        <Form
+          form={form}
+          onFinish={handleEdit}
+          layout="vertical"
+          initialValues={position}
+        >
           <Form.Item
-            name="department_id"
-            label="Tên phòng ban"
+            name="positionName"
+            label="Tên vị trí"
             rules={[
               {
                 required: true,
-                message: "Vui lòng chọn tên phòng ban",
+                message: "Vui lòng nhập tên vị trí",
               },
             ]}
           >
-            <Select />
-          </Form.Item>
-
-          <Form.Item name="name" label="Tên vị trí" rules={[
-            {
-              required: true,
-              message: "Vui lòng nhập tên vị trí"
-            }
-          ]}>
             <Input />
-          </Form.Item>
-
-          <Form.Item name="min_salary" label="Lương tối thiểu">
-            <InputNumber min={0} className="input" defaultValue={0}/>
-          </Form.Item>
-
-          <Form.Item name="max_salary" label="Lương tối thiểu">
-            <InputNumber min={0} className="input" defaultValue={0}/>
           </Form.Item>
         </Form>
       </Modal>
@@ -64,4 +62,4 @@ const EditJob = (props) => {
   );
 };
 
-export default EditJob;
+export default EditPosition;

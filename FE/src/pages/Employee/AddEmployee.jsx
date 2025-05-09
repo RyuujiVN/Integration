@@ -15,9 +15,31 @@ import {
 import Input from "antd/es/input/Input";
 import dayjs from "dayjs";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
 const AddEmployee = () => {
   const navigate = useNavigate();
+  const departments = useSelector(
+    (state) => state.department.currentDepartment
+  );
+  const positions = useSelector((state) => state.position.currentPosition);
+  const dispatch = useDispatch();
+
+  const optionsGender = [
+    { value: "nam", label: "Nam" },
+    { value: "Nữ", label: "Nữ" },
+    { value: "Khác", label: "Khác" },
+  ];
+
+  const optionsDepartment = departments.map((department) => ({
+    value: department.departmentID,
+    label: department.departmentName,
+  }));
+
+  const optionsPosition = positions.map((position) => ({
+    value: position.positionID,
+    label: position.positionName,
+  }));
 
   return (
     <>
@@ -34,35 +56,37 @@ const AddEmployee = () => {
           </Flex>
           <Divider />
 
-          <Form initialValues={{
-            hire_date: dayjs("04/02/2025", "DD/MM/YYYY"),
-          }}>
+          <Form
+            initialValues={{
+              hire_date: dayjs("04/02/2025", "DD/MM/YYYY"),
+            }}
+          >
             <Row align="center" gap={20} gutter={[20, 20]}>
               <Col sm={12}>
                 <Form.Item
-                  name="first_name"
+                  name="employeeID"
                   rules={[
                     {
                       required: true,
-                      message: "Vui lòng nhập họ!",
+                      message: "Vui lòng nhập mã nhân viên!",
                     },
                   ]}
                 >
-                  <Input placeholder="Họ"  />
+                  <Input placeholder="Mã nhân viên" />
                 </Form.Item>
               </Col>
 
               <Col sm={12}>
                 <Form.Item
-                  name="last_name"
+                  name="fullName"
                   rules={[
                     {
                       required: true,
-                      message: "Vui lòng nhập tên!",
+                      message: "Vui lòng nhập tên nhân viên!",
                     },
                   ]}
                 >
-                  <Input placeholder="Tên"  />
+                  <Input placeholder="Tên nhân viên" />
                 </Form.Item>
               </Col>
             </Row>
@@ -70,7 +94,41 @@ const AddEmployee = () => {
             <Row align="center" gap={20} gutter={[20, 20]}>
               <Col sm={12}>
                 <Form.Item
-                  name="phone"
+                  name="dateOfBirth"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Vui lòng nhập ngày sinh!",
+                    },
+                  ]}
+                >
+                  <DatePicker
+                    format="DD/MM/YYYY"
+                    style={{ width: "100%" }}
+                    placeholder="Ngày sinh"
+                  />
+                </Form.Item>
+              </Col>
+
+              <Col sm={12}>
+                <Form.Item
+                  name="job_id"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Vui lòng chọn",
+                    },
+                  ]}
+                >
+                  <Select placeholder="Chọn công việc" />
+                </Form.Item>
+              </Col>
+            </Row>
+
+            <Row align="center" gap={20} gutter={[20, 20]}>
+              <Col sm={12}>
+                <Form.Item
+                  name="phoneNumber"
                   rules={[
                     {
                       required: true,
@@ -82,7 +140,7 @@ const AddEmployee = () => {
                     },
                   ]}
                 >
-                  <Input placeholder="Số điện thoại"  />
+                  <Input placeholder="Số điện thoại" />
                 </Form.Item>
               </Col>
 
@@ -100,7 +158,7 @@ const AddEmployee = () => {
                     },
                   ]}
                 >
-                  <Input placeholder="Tên"  />
+                  <Input placeholder="Tên" />
                 </Form.Item>
               </Col>
             </Row>
@@ -146,11 +204,7 @@ const AddEmployee = () => {
                     },
                   ]}
                 >
-                  <DatePicker
-                    format="DD/MM/YYYY"
-                    style={{ width: "100%" }}
-                    
-                  />
+                  <DatePicker format="DD/MM/YYYY" style={{ width: "100%" }} />
                 </Form.Item>
               </Col>
 
@@ -180,11 +234,7 @@ const AddEmployee = () => {
                     },
                   ]}
                 >
-                  <DatePicker
-                    format="DD/MM/YYYY"
-                    style={{ width: "100%" }}
-                    
-                  />
+                  <DatePicker format="DD/MM/YYYY" style={{ width: "100%" }} />
                 </Form.Item>
               </Col>
 
@@ -198,7 +248,11 @@ const AddEmployee = () => {
                     },
                   ]}
                 >
-                  <InputNumber min={0} placeholder="Lương" style={{width: "100%"}} />
+                  <InputNumber
+                    min={0}
+                    placeholder="Lương"
+                    style={{ width: "100%" }}
+                  />
                 </Form.Item>
               </Col>
 
@@ -218,7 +272,12 @@ const AddEmployee = () => {
             </Row>
 
             <Form.Item className="employee__form--action">
-              <Button variant="outlined" onClick={() => navigate(-1)} size="large" style={{margin: 20}}>
+              <Button
+                variant="outlined"
+                onClick={() => navigate(-1)}
+                size="large"
+                style={{ margin: 20 }}
+              >
                 Quay lại
               </Button>
               <Button type="primary" htmlType="submit" size="large">

@@ -2,33 +2,21 @@ import { Button, Form, Input, Modal } from "antd";
 import React from "react";
 import { fetchDepartmentAddApi } from "~/redux/department/departmentSlice";
 import { useDispatch } from "react-redux";
-import { message } from "antd";
+import { toast } from "react-toastify";
 
 const AddDepartment = (props) => {
   const { open, setOpen } = props;
   const dispatch = useDispatch();
-  const [messageApi, messageContextHolder] = message.useMessage();
   const [form] = Form.useForm();
 
-  const success = () => {
-    messageApi.open({
-      type: "success",
-      content: "Thêm thành công!",
-    });
-  };
-
   const handleAdd = async (value) => {
-    try {
-      dispatch(fetchDepartmentAddApi(value));
-      success();
-    } catch (error) {
-      console.log(error);
-    }
+    toast.promise(dispatch(fetchDepartmentAddApi(value)), {
+      pending: "Đang thêm...",
+    });
   };
 
   return (
     <>
-      {messageContextHolder}
       <Modal
         title={<h4 className="modal__title">Thêm phòng ban</h4>}
         open={open}

@@ -5,7 +5,7 @@ import AddEmployee from "~/pages/Employee/AddEmployee";
 import EditEmployee from "~/pages/Employee/EditEmployee";
 import Employee from "~/pages/Employee/Employee";
 import ListEmployee from "~/pages/Employee/ListEmployee";
-import Job from "~/pages/Job/Job";
+import Position from "~/pages/Position/Position";
 import Login from "~/pages/Login/Login";
 import Payroll from "~/pages/Payroll/Payroll";
 import Applicant from "~/pages/Applicant/Applicant";
@@ -52,8 +52,8 @@ const route = [
       },
 
       {
-        path: "/job",
-        element: <Job />,
+        path: "/position",
+        element: <Position />,
       },
 
       {

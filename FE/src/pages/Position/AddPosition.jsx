@@ -1,11 +1,17 @@
-import { Button, Form, Input, InputNumber, Modal, Select } from "antd";
-import React from "react";
+import { Button, Form, Input, Modal } from "antd";
+import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
+import { addPositionApi } from "~/redux/position/positionSlice";
 
-const AddJob = (props) => {
+const AddPostion = (props) => {
   const { open, setOpen } = props;
+  const dispatch = useDispatch();
   const [form] = Form.useForm();
+
   const handleAdd = (value) => {
-    console.log(value);
+    toast.promise(dispatch(addPositionApi(value)), {
+      pending: "Đang thêm vị trí...",
+    });
   };
 
   return (
@@ -30,33 +36,29 @@ const AddJob = (props) => {
       >
         <Form form={form} onFinish={handleAdd} layout="vertical">
           <Form.Item
-            name="department_id"
-            label="Tên phòng ban"
+            name="positionID"
+            label="Mã vị trí"
             rules={[
               {
                 required: true,
-                message: "Vui lòng chọn tên phòng ban",
+                message: "Vui lòng nhập mã vị trí",
               },
             ]}
           >
-            <Select />
-          </Form.Item>
-
-          <Form.Item name="name" label="Tên vị trí" rules={[
-            {
-              required: true,
-              message: "Vui lòng nhập tên vị trí"
-            }
-          ]}>
             <Input />
           </Form.Item>
 
-          <Form.Item name="min_salary" label="Lương tối thiểu">
-            <InputNumber min={0} className="input" defaultValue={0}/>
-          </Form.Item>
-
-          <Form.Item name="max_salary" label="Lương tối thiểu">
-            <InputNumber min={0} className="input" defaultValue={0}/>
+          <Form.Item
+            name="positionName"
+            label="Tên vị trí"
+            rules={[
+              {
+                required: true,
+                message: "Vui lòng nhập tên vị trí",
+              },
+            ]}
+          >
+            <Input />
           </Form.Item>
         </Form>
       </Modal>
@@ -64,4 +66,4 @@ const AddJob = (props) => {
   );
 };
 
-export default AddJob;
+export default AddPostion;

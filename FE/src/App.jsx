@@ -4,6 +4,7 @@ import "./App.css";
 import { ThemeContext } from "~/context/themeContext";
 import { useContext } from "react";
 import "@ant-design/v5-patch-for-react-19";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   const { myTheme } = useContext(ThemeContext);
@@ -36,6 +37,14 @@ function App() {
         }}
       >
         <AllRoute />
+        <ToastContainer
+          position="top-right"
+          autoClose={3000}
+          closeOnClick={false}
+          pauseOnHover
+          theme="light"
+          style={{ fontSize: "1.6rem" }}
+        />
       </ConfigProvider>
     </>
   );

@@ -48,9 +48,9 @@ const items = [
   },
 
   {
-    key: "job",
+    key: "position",
     icon: <JobIcon />,
-    label: <Link to="/job">Vị trí</Link>,
+    label: <Link to="/position">Vị trí</Link>,
   },
 
   {
