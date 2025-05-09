@@ -9,9 +9,7 @@ namespace api.Dtos.Position
     {
         public int PositionID { get; set; }
         public string PositionName { get; set; } = string.Empty;
-        
         public DateTime? CreatedAt { get; set; } = DateTime.Now;
-        
         public DateTime? UpdatedAt { get; set; } = DateTime.Now;
     }
 }
